@@ -1,18 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { environment } from '../environments/environment';
+import { AngularFireModule  } from '@angular/fire';
+import { HelloFirebaseComponent } from './hello-firebase/hello-firebase.component';
+import { MyErrorHandler } from './error-handling';
+import { NgModule, ErrorHandler } from '@angular/core';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HelloFirebaseComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
-  providers: [],
+    providers: [
+    {
+      provide: ErrorHandler,
+      useClass: MyErrorHandler
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
